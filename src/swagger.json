@@ -1,0 +1,10 @@
+{
+  "openapi": "3.0.0",
+  "info":{
+    "title": "Challenge 02 of the second week - Ignite's Node.JS path ",
+    "description":"This challenge consists of doing the documentation of the first challenge of week 02",
+    "version": "1.0.0",
+    "contact":{"email": "rodrigow_@hotmail.com.br"}
+  }
+  
+}
