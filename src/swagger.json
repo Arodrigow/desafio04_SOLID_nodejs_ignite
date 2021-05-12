@@ -117,6 +117,158 @@
           }
         }
       }       
+    },
+    "/users/{user_id}":{
+      "get":{
+        "tags":["User"],
+        "summary":"Find an user.",
+        "description":"Finds an specified user through its ID. It is required to pass the ID in the params/path",
+        "parameters":[
+          {
+            "name":"user_id",
+            "in":"path",
+            "type":"string",
+            "format":"uuid"
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Successfully found the user",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type":"object",
+                  "properties":{
+                    "id":{
+                      "type":"string",
+                      "format":"uuid"
+                    },
+                    "name":{
+                      "type":"string"
+                    },
+                    "email":{
+                      "type":"string"
+                    },
+                    "admin":{
+                      "type":"boolean"
+                    },
+                    "created_at":{
+                      "type":"string",
+                      "format":"date-time"
+                    },
+                    "updated_at":{
+                      "type":"string",
+                      "format":"date-time"
+                    }
+                  },
+                  "example":{
+                    "id":"7254182f-c03f-4977-ac80-f411ee4899bd",
+                    "admin": true,
+                    "name":"Name sample",
+                    "email":"sample@email.com",
+                    "created_at":"2021-05-12T20:09:53.071Z",
+                    "updated_at":"2021-05-12T20:09:58.071Z"
+                  }
+                }
+              }
+            }
+          },
+          "404":{
+            "description": "The specified user does not exist!",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type":"object",
+                  "properties":{
+                    "error":{
+                      "type":"string"
+                    }
+                  },
+                  "example":{
+                    "error": "The specified user does not exist!"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}/admin/":{
+      "patch":{
+        "tags":["User"],
+        "summary":"Turns an user into an admin",
+        "description":"Turn an user into an admin. Passing a id through the params is necessary",
+        "parameters":[
+          {
+            "name":"user_id",
+            "in": "path",
+            "type":"string",
+            "format":"uuid"
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Turned user into admin successfully.",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type":"object",
+                  "properties":{
+                    "id":{
+                      "type":"string",
+                      "format":"uuid"
+                    },
+                    "name":{
+                      "type":"string"
+                    },
+                    "email":{
+                      "type":"string"
+                    },
+                    "admin":{
+                      "type":"boolean"
+                    },
+                    "created_at":{
+                      "type":"string",
+                      "format":"date-time"
+                    },
+                    "updated_at":{
+                      "type":"string",
+                      "format":"date-time"
+                    }
+                  },
+                  "example":{
+                    "id":"7254182f-c03f-4977-ac80-f411ee4899bd",
+                    "admin": true,
+                    "name":"Name sample",
+                    "email":"sample@email.com",
+                    "created_at":"2021-05-12T20:09:53.071Z",
+                    "updated_at":"2021-05-12T20:09:58.071Z"
+                  }
+                }
+              }
+            }
+          },
+          "404":{
+            "description": "User does not exist.",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type":"object",
+                  "properties":{
+                    "error":{
+                      "type":"string"
+                    }
+                  },
+                  "example":{
+                    "error": "User does not exist."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
