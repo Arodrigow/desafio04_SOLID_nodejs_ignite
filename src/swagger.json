@@ -5,6 +5,118 @@
     "description":"This challenge consists of doing the documentation of the first challenge of week 02",
     "version": "1.0.0",
     "contact":{"email": "rodrigow_@hotmail.com.br"}
+  },
+  "paths":{
+    "/users":{
+      "post":{
+        "tags": ["User"],
+        "summary": "New user",
+        "description": "Creates a new user locally",
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties":{
+                  "name": {
+                    "type": "string"
+                  },
+                  "email":{
+                    "type": "string"
+                  }
+                },
+                "example":{
+                  "name":"Name sample",
+                  "email":"sample@email.com"
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "201":{
+            "description": "User created successfully"
+          },
+          "400":{
+            "description": "User already exists"
+          }
+        }
+      },
+      "get":{
+        "tags": ["User"],
+        "summary": "Lists all users",
+        "description": "If user is an admin, sends a request to get all users on the database. A user_id must be passed through the request header, to be used on the validation.",
+        "parameters":[
+          {
+          "name":"user_id",
+          "in":"header",
+          "type":"string",
+          "format": "uuid",
+          "required": "true"
+         }
+        ],
+        "responses":{
+          "200":{
+            "description": "Users were listed successfully.",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type":"object",
+                  "properties":{
+                    "id":{
+                      "type":"string",
+                      "format":"uuid"
+                    },
+                    "name":{
+                      "type":"string"
+                    },
+                    "email":{
+                      "type":"string"
+                    },
+                    "admin":{
+                      "type":"boolean"
+                    },
+                    "created_at":{
+                      "type":"string",
+                      "format":"date-time"
+                    },
+                    "updated_at":{
+                      "type":"string",
+                      "format":"date-time"
+                    }
+                  },
+                  "example":{
+                    "id":"7254182f-c03f-4977-ac80-f411ee4899bd",
+                    "admin": false,
+                    "name":"Name sample",
+                    "email":"sample@email.com",
+                    "created_at":"2021-05-12T20:09:53.071Z",
+                    "updated_at":"2021-05-12T20:09:58.071Z"
+                  }
+                }
+              }
+            }
+          },
+          "400":{
+            "description": "Administrator level required to list all users.",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type":"object",
+                  "properties":{
+                    "error":{
+                      "type":"string"
+                    }
+                  },
+                  "example":{
+                    "error": "Administrator level required to list all users."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }       
+    }
   }
-  
 }
