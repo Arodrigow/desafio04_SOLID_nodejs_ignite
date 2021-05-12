@@ -7,7 +7,14 @@ class TurnUserAdminController {
 
   handle(request: Request, response: Response): Response {
     const { user_id } = request.params;
-    const user = this.turnUserAdminUseCase.execute({ user_id });
+    let user;
+    try {
+      user = this.turnUserAdminUseCase.execute({ user_id });
+    } catch (err) {
+      return response
+        .status(404)
+        .json({ error: "Non existent user cannot be an admin" });
+    }
 
     const userUpdated = response.status(200).json(user);
     return userUpdated;

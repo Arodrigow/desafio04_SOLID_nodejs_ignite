@@ -8,7 +8,14 @@ class ListAllUsersController {
   handle(request: Request, response: Response): Response {
     const { user_id: id } = request.headers;
     const user_id = id.toString();
-    const users = this.listAllUsersUseCase.execute({ user_id });
+    let users;
+    try {
+      users = this.listAllUsersUseCase.execute({ user_id });
+    } catch (err) {
+      return response
+        .status(400)
+        .json({ error: "The specified user does not exist" });
+    }
 
     return response.status(200).json(users);
   }
